@@ -11,56 +11,14 @@ on:
       - 'feature/*'
     
 jobs:
-    unit-testing:
-        
-        strategy:
-          max-parallel: 2
-          matrix:
-            os: [ubuntu-latest,mac-os]
-            version: [18,19,20]
-            exclude:
-            - os: mac-os
-              version: 18
-        name: Unit Testing for OS ${{ matrix.os }}
-        runs-on: ubuntu-latest
-        steps:
-        - name: Checkout Repository
-          uses: actions/checkout@v4
-
-        - name: Setup NodeJS Version ${{ matrix.version}}
-          uses: actions/setup-node@v3
-          with:
-            node-version: ${{matrix.version}}
-        - name: Caching by ${{runner.os}} 
-          uses: actions/cache@v3
-          with:
-            path: node_modules
-            key: ${{runner.os}}-node-modules-${{hashFiles('package-lock.json')}}
-
-        - name: Install Dependencies
-          run: npm install
-    
-        - name: Unit Testing first step1
-          id: unit-test-result
-          run: npm test
-          continue-on-error: true
-
-          
-        - name: Archive Test Result
-          if: steps.unit-test-result.outcome == 'success'
-          uses: actions/upload-artifact@v3
-          with:
-            name: Mocha-Test-Result
-            path: test-results.xml
-
-
-    unit-coverage:
-      needs: unit-testing
+    unittesting:
       strategy:
-        max-parallel: 2
         matrix:
-          os: [ubuntu-latest,windows-server]
+          os: [ubuntu-latest,mac-os]
           version: [18,19,20]
+          exclude:
+          - os: mac-os
+            version: 18
       name: Unit Testing for OS ${{ matrix.os }}
       runs-on: ubuntu-latest
       steps:
@@ -71,10 +29,50 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: ${{matrix.version}}
-  
+      - name: Caching by ${{runner.os}} 
+        uses: actions/cache@v3
+        with:
+          path: node_modules
+          key: ${{runner.os}}-node-modules-${{hashFiles('package-lock.json')}}
+
+      - name: Install Dependencies
+        run: npm install
+
+      - name: Unit Testing first step1
+        id: unit-test-result
+        run: npm test
+        continue-on-error: true
+
+        
+      - name: Archive Test Result
+        if: steps.unit-test-result.outcome == 'success'
+        uses: actions/upload-artifact@v3
+        with:
+          name: Mocha-Test-Result
+          path: test-results.xml
+
+    unitcoverage:
+      strategy:
+        matrix:
+          os: [ubuntu-latest,macos-latest]
+          version: [18,19,20]
+          exclude:
+          - os: macos-latest
+            version: 18
+      name: Unit Testing for OS ${{ matrix.os }}
+      runs-on: ubuntu-latest
+      steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Setup NodeJS Version ${{ matrix.version}}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{matrix.version}}
+
       - name: Install Dependencies for coverage
         run: npm install
-  
+
       - name: Unit Testing first coverage
         id: unit-test-result-coverage
         run: npm run coverage
@@ -86,3 +84,21 @@ jobs:
         with:
           name: Mocha-coverage-result
           path: coverage
+
+
+    docker:
+      needs: [unittesting,unitcoverage]
+      strategy:
+        matrix:
+          os: [ubunt-latest,macos-latest]
+          version: [18,19,20]
+      runs-on: ${{matrix.os}}
+      steps:
+      - name: Checkout repositories
+        uses: actions/checkout@v4
+      - name: docker login
+        uses: docker/login-action@v4
+        with:
+          username: ${{vars.DOCKERHUB_USERNAME}}
+          password: ${{secrets.DOCKERHUB_PASSWORD}}
+  
