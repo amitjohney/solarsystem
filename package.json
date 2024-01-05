@@ -19,7 +19,8 @@
     "mocha-junit-reporter": "^2.2.1",
     "mongoose": "5.13.20",
     "nodemon": "^3.0.2",
-    "nyc": "^15.1.0"
+    "nyc": "^15.1.0",
+    "python": "^0.0.4"
   },
   "devDependencies": {
     "chai": "*",

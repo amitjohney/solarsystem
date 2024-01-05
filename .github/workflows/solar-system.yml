@@ -16,8 +16,11 @@ jobs:
         strategy:
           max-parallel: 2
           matrix:
-            os: [ubuntu-latest,windows-server]
+            os: [ubuntu-latest,mac-os]
             version: [18,19,20]
+            exclude:
+            - os: mac-os
+              version: 18
         name: Unit Testing for OS ${{ matrix.os }}
         runs-on: ubuntu-latest
         steps:
