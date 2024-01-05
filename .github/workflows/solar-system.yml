@@ -157,8 +157,8 @@ jobs:
       - name: Print NAME
         uses:  cschleiden/replace-tokens@v1
         with:
-          tokenSuffix: '_{_'
-          tokenPrefix: '_}_'
+          tokenPrefix: '_{_'
+          tokenSuffix: '_}_'
           files: '["production/test.yaml"]'
         env:
           NAME: "AMIT"
