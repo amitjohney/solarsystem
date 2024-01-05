@@ -161,7 +161,7 @@ jobs:
           tokenSuffix: '_}_'
           files: '["production/test.yaml"]'
         env:
-          NAME: "AMIT"
+          NAME: ${{needs.dev-deploy.outputs.output1}}
       - name: Display output
         run: "cat production/test.yaml"
 
