@@ -46,6 +46,7 @@ jobs:
 
 
     unit-coverage:
+      needs: unit-testing
       strategy:
         matrix:
           os: [ubuntu-latest,windows-server]
