@@ -150,7 +150,7 @@ jobs:
       runs-on: ubuntu-latest
       needs: dev-deploy
       steps:
-      - name: Print variable
+      - name: Print variable from file
         run: "echo Value is ${{needs.dev-deploy.outputs.output1}}"
       - name: Print NAME
         uses:  cschleiden/replace-tokens@v1
