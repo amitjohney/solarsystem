@@ -1,5 +1,4 @@
 name: Solar System Workflow
-
 env:
   MONGO_URI: 'mongodb+srv://supercluster.d83jj.mongodb.net/superData'
   MONGO_USERNAME: 'superuser'
@@ -13,7 +12,9 @@ on:
     
 jobs:
     unit-testing:
+        
         strategy:
+          max-parallel: 2
           matrix:
             os: [ubuntu-latest,windows-server]
             version: [18,19,20]
@@ -48,6 +49,7 @@ jobs:
     unit-coverage:
       needs: unit-testing
       strategy:
+        max-parallel: 2
         matrix:
           os: [ubuntu-latest,windows-server]
           version: [18,19,20]
