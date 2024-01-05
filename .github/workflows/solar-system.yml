@@ -157,11 +157,9 @@ jobs:
       - name: Print NAME
         uses:  cschleiden/replace-tokens@v1
         with:
-          tokenSuffix: "_{_"
-          tokenPrefix: "_}_"
+          tokenSuffix: '_{_'
+          tokenPrefix: '_}_'
           files: '["production/*.yaml"]'
-        env:
-          NAME: amit
       - name: Display output
         run: "cat production/test.yaml"
 
