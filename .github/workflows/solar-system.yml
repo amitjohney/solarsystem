@@ -159,9 +159,9 @@ jobs:
         with:
           tokenSuffix: '_{_'
           tokenPrefix: '_}_'
-          files: '["production/*.yaml"]'
+          files: '["production/test.yaml"]'
         env:
-          NAME: AMIT
+          NAME: "AMIT"
       - name: Display output
         run: "cat production/test.yaml"
 
