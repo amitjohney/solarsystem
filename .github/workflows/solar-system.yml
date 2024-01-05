@@ -28,7 +28,12 @@ jobs:
           uses: actions/setup-node@v3
           with:
             node-version: ${{matrix.version}}
-    
+        - name: Caching by ${{runner.os}} 
+          uses: actions/cache@v3
+          with:
+            path: node-modules
+            key: ${{runner.os}}-node-modules-${{hashFiles('package-lock.json')}}
+            
         - name: Install Dependencies
           run: npm install
     
