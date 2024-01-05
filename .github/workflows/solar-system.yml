@@ -61,7 +61,7 @@ jobs:
         with:
           node-version: ${{matrix.version}}
   
-      - name: Install Dependencies
+      - name: Install Dependencies for coverage
         run: npm install
   
       - name: Unit Testing first coverage
