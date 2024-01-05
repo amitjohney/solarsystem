@@ -38,7 +38,6 @@ jobs:
 
           
         - name: Archive Test Result
-          if: steps.unit-test-result.outcome == 'failure'
           uses: actions/upload-artifact@v3
           with:
             name: Mocha-Test-Result
