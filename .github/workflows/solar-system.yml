@@ -113,5 +113,12 @@ jobs:
           docker run -d -p 3000:3000  -e MONGO_URI=$MONGO_URI -e MONGO_USERNAME=$MONGO_USERNAME -e MONGO_PASSWORD=$MONGO_PASSWORD --name testcontainer ${{vars.DOCKERhub_USERNAME}}/solar-system/solar-image-${{github.sha}}
           wget -q -O - 127.0.0.1:3000/live
 
+      - name: Docker image build for version ${{matrix.version}}
+        uses: docker/build-push-action@v3
+        with:
+          context: .
+          push: true
+          tags: ${{vars.DOCKERHUB_USERNAME}}/solar-system/solar-image--${{matrix.version}}-${{github.sha}}
+
 
   
