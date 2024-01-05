@@ -118,7 +118,7 @@ jobs:
         with:
           context: .
           push: true
-          tags: ${{vars.DOCKERHUB_USERNAME}}/solar-system/solar-image--${{matrix.version}}-${{github.sha}}
+          tags: ${{vars.DOCKERHUB_USERNAME}}/solar-system/solar-image-${{github.sha}}
 
 
   
