@@ -160,6 +160,8 @@ jobs:
           tokenSuffix: '_{_'
           tokenPrefix: '_}_'
           files: '["production/*.yaml"]'
+        env:
+          NAME: AMIT
       - name: Display output
         run: "cat production/test.yaml"
 
