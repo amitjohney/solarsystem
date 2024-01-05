@@ -64,9 +64,9 @@ jobs:
       - name: Install Dependencies
         run: npm install
   
-      - name: Unit Testing first step1
-        id: unit-test-result
-        run: npm coverage
+      - name: Unit Testing first coverage
+        id: unit-test-result-coverage
+        run: npm run coverage
         continue-on-error: true
 
         
