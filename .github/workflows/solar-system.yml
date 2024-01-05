@@ -152,6 +152,8 @@ jobs:
       steps:
       - name: Print variable from file
         run: "echo Value is ${{needs.dev-deploy.outputs.output1}}"
+      - name: Checkout repositories
+        uses: actions/checkout@v4
       - name: Print NAME
         uses:  cschleiden/replace-tokens@v1
         with:
