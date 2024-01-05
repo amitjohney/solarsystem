@@ -90,7 +90,7 @@ jobs:
       needs: [unittesting,unitcoverage]
       strategy:
         matrix:
-          os: [ubunt-latest]
+          os: [ubuntu-latest]
           version: [18,19,20]
       runs-on: ${{matrix.os}}
       steps:
