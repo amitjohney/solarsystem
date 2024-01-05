@@ -87,6 +87,8 @@ jobs:
 
 
     docker:
+      permissions:
+        packages: write
       needs: [unittesting,unitcoverage]
       strategy:
         matrix:
